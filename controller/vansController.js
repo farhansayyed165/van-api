@@ -10,10 +10,10 @@ const getAllVans = asyncHandler(async (req, res)=>{
     }
     let str = "";
     if(vanid){
-        str = `SELECT * FROM vans WHERE userid = $1 AND vanid=${vanid}`
+        str = `SELECT * FROM vans WHERE userid = $1 AND vanid=${vanid}`;
     }
     else{
-        str = "SELECT * FROM vans WHERE userid = $1 ORDER BY vanid ASC"
+        str = "SELECT * FROM vans WHERE userid = $1 ORDER BY vanid ASC";
     }
     const client = await pool.connect()
     const vans = await client.query(str, [userId])
