@@ -45,7 +45,11 @@ const createUser = asyncHandler(async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-        const result = await client.query("INSERT INTO users VALUES (DEFAULT,$1,$2,$3,$4,$5,$6,$7) RETURNING *", [name, email, hashedPassword, imageUrl, about, gender, role])
+        const result = await client.query(
+            "INSERT INTO users VALUES (DEFAULT, $1, $2, $3, $4, $5, $6, $7) RETURNING *", 
+            [name, email, hashedPassword, imageUrl, about, gender, role]
+          );
+          
         result.rows[0].password = undefined
         res.json(result.rows[0]).status(200)
         client.release()
